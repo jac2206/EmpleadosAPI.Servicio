@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FisaPayEmpleadosDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="uspActualizarEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion">
+          <Parameter Name="Id" Type="bigint" Mode="In" />
+          <Parameter Name="Nombres" Type="varchar" Mode="In" />
+          <Parameter Name="Apellidos" Type="varchar" Mode="In" />
+          <Parameter Name="Sexo" Type="varchar" Mode="In" />
+          <Parameter Name="FechaNacimiento" Type="varchar" Mode="In" />
+          <Parameter Name="Salario" Type="bigint" Mode="In" />
+          <Parameter Name="VacunadoCovid" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="uspEliminarEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="uspGuardarEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion">
+          <Parameter Name="Nombres" Type="varchar" Mode="In" />
+          <Parameter Name="Apellidos" Type="varchar" Mode="In" />
+          <Parameter Name="Sexo" Type="varchar" Mode="In" />
+          <Parameter Name="FechaNacimiento" Type="varchar" Mode="In" />
+          <Parameter Name="Salario" Type="bigint" Mode="In" />
+          <Parameter Name="VacunadoCovid" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="uspObtenerEmpleados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion" />
+        <Function Name="uspObtenerTotalSalario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion" />
+        <EntityContainer Name="FisaPayEmpleadosDBModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FisaPayEmpleadosDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FisaPayEmpleadosDBEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="uspObtenerEmpleados" ReturnType="Collection(FisaPayEmpleadosDBModel.uspObtenerEmpleados_Result)" />
+          <FunctionImport Name="uspEliminarEmpleado">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="uspActualizarEmpleado">
+            <Parameter Name="Id" Mode="In" Type="Int64" />
+            <Parameter Name="Nombres" Mode="In" Type="String" />
+            <Parameter Name="Apellidos" Mode="In" Type="String" />
+            <Parameter Name="Sexo" Mode="In" Type="String" />
+            <Parameter Name="FechaNacimiento" Mode="In" Type="String" />
+            <Parameter Name="Salario" Mode="In" Type="Int64" />
+            <Parameter Name="VacunadoCovid" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspGuardarEmpleado">
+            <Parameter Name="Nombres" Mode="In" Type="String" />
+            <Parameter Name="Apellidos" Mode="In" Type="String" />
+            <Parameter Name="Sexo" Mode="In" Type="String" />
+            <Parameter Name="FechaNacimiento" Mode="In" Type="String" />
+            <Parameter Name="Salario" Mode="In" Type="Int64" />
+            <Parameter Name="VacunadoCovid" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspObtenerTotalSalario" ReturnType="Collection(Int64)" />
+        </EntityContainer>
+        <ComplexType Name="uspObtenerEmpleados_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Nombres" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Apellidos" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Sexo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="FechaNacimiento" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="EdadALaFecha" Nullable="true" MaxLength="46" />
+          <Property Type="Int64" Name="Salario" Nullable="false" />
+          <Property Type="String" Name="VacunadoCovid" Nullable="false" MaxLength="10" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FisaPayEmpleadosDBModelStoreContainer" CdmEntityContainer="FisaPayEmpleadosDBEntities" >
+          <FunctionImportMapping FunctionImportName="uspObtenerEmpleados" FunctionName="FisaPayEmpleadosDBModel.Store.uspObtenerEmpleados">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FisaPayEmpleadosDBModel.uspObtenerEmpleados_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="EdadALaFecha" ColumnName="EdadALaFecha" />
+                <ScalarProperty Name="Salario" ColumnName="Salario" />
+                <ScalarProperty Name="VacunadoCovid" ColumnName="VacunadoCovid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspEliminarEmpleado" FunctionName="FisaPayEmpleadosDBModel.Store.uspEliminarEmpleado" />
+          <FunctionImportMapping FunctionImportName="uspActualizarEmpleado" FunctionName="FisaPayEmpleadosDBModel.Store.uspActualizarEmpleado" />
+          <FunctionImportMapping FunctionImportName="uspGuardarEmpleado" FunctionName="FisaPayEmpleadosDBModel.Store.uspGuardarEmpleado" />
+          <FunctionImportMapping FunctionImportName="uspObtenerTotalSalario" FunctionName="FisaPayEmpleadosDBModel.Store.uspObtenerTotalSalario" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
